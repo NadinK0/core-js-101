@@ -381,8 +381,66 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const arr = str.split('');
+  const brackets = {
+    square: ['[', ']'],
+    round: ['(', ')'],
+    figure: ['{', '}'],
+    angle: ['<', '>'],
+  };
+  let b;
+  if (arr.length === 0) {
+    b = true;
+  } else {
+    const stack = [];
+    stack.push(arr[0]);
+    let j = 0;
+    for (let i = 1; i < arr.length; i += 1) {
+      if (arr[i] === brackets.round[0] || arr[i] === brackets.square[0]
+        || arr[i] === brackets.figure[0] || arr[i] === brackets.angle[0]) {
+        stack.push(arr[i]);
+      }
+      if (arr[i] === brackets.round[1]) {
+        if (stack[i - 1 - j] === brackets.round[0]) {
+          stack.pop();
+          j += 2;
+        } else {
+          stack.push(arr[i]);
+        }
+      }
+      if (arr[i] === brackets.square[1]) {
+        if (stack[i - 1 - j] === brackets.square[0]) {
+          stack.pop();
+          j += 2;
+        } else {
+          stack.push(arr[i]);
+        }
+      }
+      if (arr[i] === brackets.figure[1]) {
+        if (stack[i - 1 - j] === brackets.figure[0]) {
+          stack.pop();
+          j += 2;
+        } else {
+          stack.push(arr[i]);
+        }
+      }
+      if (arr[i] === brackets.angle[1]) {
+        if (stack[i - 1 - j] === brackets.angle[0]) {
+          stack.pop();
+          j += 2;
+        } else {
+          stack.push(arr[i]);
+        }
+      }
+    }
+    if (stack.length === 0) {
+      b = true;
+    } else {
+      b = false;
+    }
+  }
+  return b;
 }
 
 
@@ -406,8 +464,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
